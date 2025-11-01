@@ -9,11 +9,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
 
-class WeatherRepository(private val apiService: WeatherApiService) {
+class WeatherRepository(
+    private val apiService: WeatherApiService,
+    private val apiKey: String ) {
 
     suspend fun getWeather(city: String): Result<WeatherModel> {
         return try {
-            val dto = apiService.getCurrentWeather(city)
+            val dto = apiService.getCurrentWeather(city, apiKey)
 
             Result.success(mapDtoToModel(dto))
 

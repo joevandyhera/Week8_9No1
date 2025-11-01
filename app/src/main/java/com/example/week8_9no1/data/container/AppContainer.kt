@@ -1,4 +1,3 @@
-
 package com.example.week8_9no1.data.container
 
 import com.example.week8_9no1.data.repository.WeatherRepository
@@ -10,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AppContainer {
 
     private val BASE_URL = "https://api.openweathermap.org/"
+    private val API_KEY = "199d39cbaad32e3acffa0001c5c70afa"
 
-    private val okHttpClient = OkHttpClient.Builder()
-        .build()
+    private val okHttpClient = OkHttpClient.Builder().build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -24,11 +23,9 @@ class AppContainer {
         retrofit.create(WeatherApiService::class.java)
     }
 
-    private val weatherRepository: WeatherRepository by lazy {
-        WeatherRepository(weatherApiService)
+    val repository: WeatherRepository by lazy {
+        WeatherRepository(weatherApiService, API_KEY)
     }
 
-    fun getWeatherRepository(): WeatherRepository {
-        return weatherRepository
-    }
+
 }
